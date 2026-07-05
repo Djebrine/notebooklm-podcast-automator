@@ -23,7 +23,9 @@ def main():
 
     print(f"Starting API server for notebook: {os.getenv('NOTEBOOKLM_URL')}")
     
-    uvicorn.run("notebooklm_automator.api.app:app", host=args.host, port=args.port, reload=True)
+    # FORGE-093 patch : reload=False (le rechargement a chaud est un confort dev,
+    # pas un reglage de prod). Voir specs/FORGE-093.md.
+    uvicorn.run("notebooklm_automator.api.app:app", host=args.host, port=args.port, reload=False)
 
 if __name__ == "__main__":
     main()
